@@ -11,4 +11,26 @@
 </p>
 
 <%= link_to 'Edit', edit_playlist_path(@playlist) %> |
-<%= link_to 'Back', playlists_path %>
+<%= link_to 'Back', playlists_path %> |
+
+<br>
+
+<p>
+  <strong>Canciones</strong>
+</p>
+
+<ul>
+<% @songs.each do |song|%>
+  <li><%= song.artist %> - <%= song.name %> | <%= link_to 'Eliminar', playlist_song_path(@playlist, song), method: :delete %></li>
+<% end %>
+</ul>
+
+<%= form_with(model: [@playlist, Song.new], local: true) do |f| %>
+  <%= f.label :artist %>
+  <%= f.text_field :artist %>
+  <br>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.submit 'Agregar' %>
+<% end %>
